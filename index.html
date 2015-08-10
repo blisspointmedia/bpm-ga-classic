@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Bliss Point Media</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+        <script type="text/javascript">
+
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', 'UA-58169108-3']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+            $('#myButton').on('click', function() {
+                var sessionStart = $.cookie('_bpmStartSession');
+                var delta = -1;
+                if (typeof sessionStart != 'undefined') {
+                    delta = new Date().getTime() - sessionStart;
+                }
+
+                _gaq.push(['_setCustomVar',
+                      1,             // This custom var is set to slot #1.  Required parameter.
+                      'Lower Funnel',   // The name of the custom variable.  Required parameter.
+                      'Data',      // Sets the value of "User Type" to "Member" or "Visitor" depending on status.  Required parameter.
+                       2             // Sets the scope to session-level.
+                   ]);
+            });
+          })();
+
+        /*This needs to run on every page load to ensure we pick up session start times*/
+          $(function() {
+            if (typeof $.cookie('_bpmStartSession') === 'undefined') {
+                $.cookie('_bpmStartSession', new Date().getTime(), { expires: new Date(new Date().getTime() + (30 * 60 * 1000)) });
+            }
+          });
+        </script>
+    </head>
+
+    <body>
+        <h3>Hello world</h3>
+        <button id="myButton">Click Me!</button>
+    </body>
+
+</html>
