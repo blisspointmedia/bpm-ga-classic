@@ -11,7 +11,7 @@
           _gaq.push(['_setAccount', 'UA-58169108-3']);
           _gaq.push(['_trackPageview']);
 
-          (function() {
+          $(function() {
             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
@@ -23,14 +23,12 @@
                     delta = new Date().getTime() - sessionStart;
                 }
 
-                _gaq.push(['_setCustomVar',
-                      1,             // This custom var is set to slot #1.  Required parameter.
-                      'Lower Funnel',   // The name of the custom variable.  Required parameter.
-                      'Data',      // Sets the value of "User Type" to "Member" or "Visitor" depending on status.  Required parameter.
-                       2             // Sets the scope to session-level.
-                   ]);
+                _gaq.push(['_trackEvent',
+                    'BpmSessionStartDelta', // category of activity
+                    '' + delta, // Action
+                 ]);
             });
-          })();
+          });
 
         /*This needs to run on every page load to ensure we pick up session start times*/
           $(function() {
